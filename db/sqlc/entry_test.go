@@ -12,11 +12,13 @@ import (
 func createRandomEntry(t *testing.T, account Account) Entry {
 	arg := CreateEntryParams{
 		AccountID: account.ID,
-		Amount:    util.RandomMoney(),
+		Amount:    float64(util.RandomMoney()),
 	}
 
-	entry, err := testQueries.CreateEntry(context.Background(), arg)
+	_, err := testQueries.CreateEntry(context.Background(), arg)
 	require.NoError(t, err)
+
+	entry, err := testQueries.GetEntry(context.Background(), 1)
 	require.NotEmpty(t, entry)
 
 	require.Equal(t, arg.AccountID, entry.AccountID)

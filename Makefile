@@ -11,16 +11,16 @@ dropdb:
 	docker exec -it postgres12 dropdb simple_bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migration -database "mysql://rianday:#21Elcar0@tcp(git.homelab.com:6603)/sayur_bro" -verbose up
 
 migrateup1:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migration -database "mysql://rianday:#21Elcar0@tcp(git.homelab.com:6603)/sayur_bro" -verbose up 1
 
 migratedown:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migration -database "mysql://rianday:#21Elcar0@tcp(git.homelab.com:6603)/sayur_bro" -verbose down
 
 migratedown1:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migration -database "mysql://rianday:#21Elcar0@tcp(git.homelab.com:6603)/sayur_bro" -verbose down 1
 
 sqlc:
 	sqlc generate

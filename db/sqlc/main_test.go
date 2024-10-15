@@ -6,20 +6,25 @@ import (
 	"os"
 	"testing"
 
-	_ "github.com/lib/pq"
-	"github.com/techschool/simplebank/util"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var testQueries *Queries
 var testDB *sql.DB
 
-func TestMain(m *testing.M) {
-	config, err := util.LoadConfig("../..")
-	if err != nil {
-		log.Fatal("cannot load config:", err)
-	}
+const (
+	dbDriver = "mysql"
+	dbSource = "rianday:#21Elcar0@tcp(git.homelab.com:6603)/sayur_bro?parseTime=true"
+)
 
-	testDB, err = sql.Open(config.DBDriver, config.DBSource)
+func TestMain(m *testing.M) {
+	// config, err := util.LoadConfig("../..")
+	// if err != nil {
+	// 	log.Fatal("cannot load config:", err)
+	// }
+
+	testDB, err := sql.Open(dbDriver, dbSource)
+	// testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)
 	}
