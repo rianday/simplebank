@@ -12,10 +12,10 @@ import (
 )
 
 type transferRequest struct {
-	FromAccountID int64  `json:"from_account_id" binding:"required,min=1"`
-	ToAccountID   int64  `json:"to_account_id" binding:"required,min=1"`
-	Amount        int64  `json:"amount" binding:"required,gt=0"`
-	Currency      string `json:"currency" binding:"required,currency"`
+	FromAccountID int32   `json:"from_account_id" binding:"required,min=1"`
+	ToAccountID   int32   `json:"to_account_id" binding:"required,min=1"`
+	Amount        float64 `json:"amount" binding:"required,gt=0"`
+	Currency      string  `json:"currency" binding:"required,currency"`
 }
 
 func (server *Server) createTransfer(ctx *gin.Context) {
@@ -57,7 +57,7 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, result)
 }
 
-func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency string) (db.Account, bool) {
+func (server *Server) validAccount(ctx *gin.Context, accountID int32, currency string) (db.Account, bool) {
 	account, err := server.store.GetAccount(ctx, accountID)
 	if err != nil {
 		if err == sql.ErrNoRows {

@@ -56,7 +56,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 		Email:          req.Email,
 	}
 
-	user, err := server.store.CreateUser(ctx, arg)
+	_, err = server.store.CreateUser(ctx, arg)
 	if err != nil {
 		if pqErr, ok := err.(*pq.Error); ok {
 			switch pqErr.Code.Name() {
@@ -68,6 +68,8 @@ func (server *Server) createUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
+
+	user, err := server.store.GetUser(ctx, req.Username)
 
 	rsp := newUserResponse(user)
 	ctx.JSON(http.StatusOK, rsp)
